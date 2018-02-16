@@ -13,11 +13,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+//        insertData()
+        fetchData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func insertData() {
+        let user = Users(context: context)
+        
+        user.name = "Zain"
+        user.age = 20
+        
+        appDelegate.saveContext()
+    }
+    func fetchData() {
+        do {
+            let data = try context.fetch(Users.fetchRequest())
+            
+            for each in data {
+                print("Name: \((each as AnyObject).name! ?? "no Value")")
+                print("Age: \((each as AnyObject).age!)")
+            }
+            
+        }
+        catch  {
+            
+        }
     }
 
 
